@@ -44,7 +44,7 @@
 # endif
 #endif
 
-#if !defined WIN32_NATIVE
+#if !defined(WIN32_NATIVE) && !defined(__ANDROID__)
 # if HAVE_LANGINFO_CODESET
 #  include <langinfo.h>
 # else
@@ -328,7 +328,7 @@ locale_charset (void)
   const char *codeset;
   const char *aliases;
 
-#if !(defined WIN32_NATIVE || defined OS2)
+#if !(defined WIN32_NATIVE || defined OS2 || defined __ANDROID__)
 
 # if HAVE_LANGINFO_CODESET
 

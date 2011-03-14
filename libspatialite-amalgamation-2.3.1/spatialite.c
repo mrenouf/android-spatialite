@@ -72,7 +72,7 @@ extern const char * locale_charset (void);
 #include <localcharset.h>
 #endif /* end localcharset */
 #else /* not WINDOWS */
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(__ANDROID__)
 #include <iconv.h>
 #include <localcharset.h>
 #else /* not Mac OsX */
@@ -7508,7 +7508,7 @@ gaiaCleanSqlString (char *value)
 #define LIBCHARSET_STATIC
 /* #include <localcharset.h> */
 #else /* not MINGW32 - WIN32 */
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(__ANDROID__)
 /* #include <iconv.h> */
 /* #include <localcharset.h> */
 #else /* not Mac OsX */
@@ -7526,7 +7526,7 @@ gaiaGetLocaleCharset ()
 #if defined(__MINGW32__) || defined(_WIN32)
     return locale_charset ();
 #else /* not MINGW32 - WIN32 */
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(__ANDROID__)
     return locale_charset ();
 #else /* not Mac OsX */
     return nl_langinfo (CODESET);
@@ -13896,7 +13896,7 @@ gaiaPolygonize (gaiaGeomCollPtr geom_org, int force_multipolygon)
 #define LIBCHARSET_STATIC
 /* #include <localcharset.h> */
 #else /* not MINGW32 */
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(__ANDROID__)
 /* #include <iconv.h> */
 /* #include <localcharset.h> */
 #else /* not Mac OsX */
