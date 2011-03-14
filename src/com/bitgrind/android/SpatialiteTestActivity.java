@@ -40,6 +40,7 @@ public class SpatialiteTestActivity extends Activity {
 					// "If true is returned the running SQLite query is aborted."
 					return false;
 				}};
+				db.exec("SELECT load_extension('libspatialite.so');", cb);
 			db.exec("SELECT name, peoples, AsText(GaiaGeometry) from Towns where peoples > 350000 order by peoples DESC;", cb);
 		} catch (Exception e) {
 			e.printStackTrace();
