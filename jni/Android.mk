@@ -195,3 +195,18 @@ LOCAL_SRC_FILES := \
 LOCAL_STATIC_LIBRARIES := iconv proj
 include $(BUILD_SHARED_LIBRARY)
 
+
+include $(CLEAR_VARS)
+LOCAL_MODULE    := jsqlite
+LOCAL_CFLAGS	:= -D__ANDROID__ \
+        -DHAVE_SQLITE3=1 \
+        -DHAVE_SQLITE3_LOAD_EXTENSION=1 \
+        -DCANT_PASS_VALIST_AS_CHARPTR=1
+LOCAL_C_INCLUDES := \
+        $(LOCAL_PATH)/libspatialite-amalgamation-2.3.1/headers/spatialite/ \
+        $(LOCAL_PATH)/javasqlite-20110106/native/
+LOCAL_SRC_FILES := \
+        javasqlite-20110106/native/sqlite_jni.c
+LOCAL_SHARED_LIBRARIES := spatialite
+include $(BUILD_SHARED_LIBRARY)
+
