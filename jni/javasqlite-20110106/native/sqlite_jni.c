@@ -4971,6 +4971,7 @@ Java_SQLite_Backup_internal_1init(JNIEnv *env, jclass cls)
 JNIEXPORT void JNICALL
 Java_SQLite_Database_internal_1init(JNIEnv *env, jclass cls)
 {
+    spatialite_init(1);
 #if defined(DONT_USE_JNI_ONLOAD) || !defined(JNI_VERSION_1_2)
     while (C_java_lang_String == 0) {
 	jclass jls = (*env)->FindClass(env, "java/lang/String");
