@@ -1,4 +1,4 @@
-package SQLite;
+package jsqlite;
 
 /**
  * Class for SQLite related exceptions.

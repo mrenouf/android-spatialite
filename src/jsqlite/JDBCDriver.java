@@ -1,4 +1,4 @@
-package SQLite;
+package jsqlite;
 
 import java.sql.*;
 import java.util.Properties;
@@ -62,7 +62,7 @@ public class JDBCDriver implements java.sql.Driver {
 		    java.lang.System.getProperty("SQLite.sharedcache");
 		if (shcache != null &&
 		    (shcache.startsWith("y") || shcache.startsWith("Y"))) {
-		    sharedCache = SQLite.Database._enable_shared_cache(true);
+		    sharedCache = jsqlite.Database._enable_shared_cache(true);
 		}
 	    } catch (java.lang.Exception e) {
 	    }

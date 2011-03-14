@@ -1,8 +1,9 @@
-package SQLite;
+package jsqlite;
 
-import SQLite.*;
 import java.io.*;
 import java.util.*;
+
+import jsqlite.*;
 
 /**
  * SQLite SQL restore utility.
@@ -17,7 +18,7 @@ public class SQLRestore {
 	this.db = db;
     }
 
-    public void restore() throws SQLite.Exception {
+    public void restore() throws jsqlite.Exception {
 	String line = null, sql = null;
 	while (true) {
 	    try {
@@ -25,7 +26,7 @@ public class SQLRestore {
 	    } catch (EOFException e) {
 		line = null;
 	    } catch (IOException e) {
-		throw new SQLite.Exception("I/O error");
+		throw new jsqlite.Exception("I/O error");
 	    }
 	    if (line == null) {
 		break;
@@ -41,7 +42,7 @@ public class SQLRestore {
 	    }
 	}
 	if (sql != null) {
-	    throw new SQLite.Exception("Incomplete SQL: " + sql);
+	    throw new jsqlite.Exception("Incomplete SQL: " + sql);
 	}
     }
 }

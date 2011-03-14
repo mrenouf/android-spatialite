@@ -1,6 +1,6 @@
 /* DO NOT EDIT */
 
-package SQLite;
+package jsqlite;
 
 /**
  * Container for SQLite constants.

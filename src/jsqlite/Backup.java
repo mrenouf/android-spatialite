@@ -1,4 +1,4 @@
-package SQLite;
+package jsqlite;
 
 /**
  * Class wrapping an SQLite backup object.
@@ -16,7 +16,7 @@ public class Backup {
      * Finish a backup.
      */
 
-    protected void finish() throws SQLite.Exception {
+    protected void finish() throws jsqlite.Exception {
 	synchronized(this) {
 	    _finalize();
 	}
@@ -30,12 +30,12 @@ public class Backup {
 	synchronized(this) {
 	    try {
 		_finalize();
-	    } catch (SQLite.Exception e) {
+	    } catch (jsqlite.Exception e) {
 	    }
 	}
     }
 
-    protected native void _finalize() throws SQLite.Exception;
+    protected native void _finalize() throws jsqlite.Exception;
 
     /**
      * Perform a backup step.
@@ -44,19 +44,19 @@ public class Backup {
      * @return true when backup completed
      */
 
-    public boolean step(int n) throws SQLite.Exception {
+    public boolean step(int n) throws jsqlite.Exception {
 	synchronized(this) {
 	    return _step(n);
 	}
     }
 
-    private native boolean _step(int n) throws SQLite.Exception;
+    private native boolean _step(int n) throws jsqlite.Exception;
 
     /**
      * Perform the backup in one step.
      */
 
-    public void backup() throws SQLite.Exception {
+    public void backup() throws jsqlite.Exception {
 	synchronized(this) {
 	    _step(-1);
 	}
@@ -66,25 +66,25 @@ public class Backup {
      * Return number of remaining pages to be backed up.
      */
 
-    public int remaining() throws SQLite.Exception {
+    public int remaining() throws jsqlite.Exception {
 	synchronized(this) {
 	    return _remaining();
 	}
     }
 
-    private native int _remaining() throws SQLite.Exception;
+    private native int _remaining() throws jsqlite.Exception;
 
     /**
      * Return the total number of pages in the backup source database.
      */
 
-    public int pagecount() throws SQLite.Exception {
+    public int pagecount() throws jsqlite.Exception {
 	synchronized(this) {
 	    return _pagecount();
 	}
     }
 
-    private native int _pagecount() throws SQLite.Exception;
+    private native int _pagecount() throws jsqlite.Exception;
 
     /**
      * Internal native initializer.

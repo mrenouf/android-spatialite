@@ -1,8 +1,9 @@
-package SQLite;
+package jsqlite;
 
-import SQLite.*;
 import java.io.*;
 import java.util.*;
+
+import jsqlite.*;
 
 /**
  * SQLite SQL dump utility.
@@ -32,7 +33,7 @@ public class SQLDump implements Callback {
 	s.db = db;
     }
 
-    public void dump() throws SQLite.Exception {
+    public void dump() throws jsqlite.Exception {
 	pw.println("BEGIN TRANSACTION;");
 	db.exec("SELECT name, type, sql FROM sqlite_master " +
 		"WHERE type!='meta' AND sql NOT NULL " +

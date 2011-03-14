@@ -2,8 +2,9 @@ package com.bitgrind.android;
 
 import java.util.Arrays;
 
-import SQLite.Callback;
-import SQLite.Exception;
+import jsqlite.Callback;
+import jsqlite.Exception;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,11 +19,11 @@ public class SpatialiteTestActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
 
-    SQLite.Database db = new SQLite.Database();
+    jsqlite.Database db = new jsqlite.Database();
     try {
 
       db.open(Environment.getExternalStorageDirectory() + "/spatialite-test.db",
-          SQLite.Constants.SQLITE_OPEN_CREATE);
+          jsqlite.Constants.SQLITE_OPEN_CREATE);
       Callback cb = new Callback() {
         @Override
         public void columns(String[] coldata) {

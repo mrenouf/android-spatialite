@@ -7,7 +7,7 @@
  *  thread to parallellize server operations.
  */
 
-package SQLite;
+package jsqlite;
 
 import java.sql.*;
 import java.util.*;

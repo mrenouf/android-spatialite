@@ -1,4 +1,4 @@
-package SQLite;
+package jsqlite;
 
 /**
  * String encoder/decoder for SQLite.

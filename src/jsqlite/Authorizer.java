@@ -1,4 +1,4 @@
-package SQLite;
+package jsqlite;
 
 /**
  * Callback interface for SQLite's authorizer function.

@@ -1,4 +1,4 @@
-package SQLite;
+package jsqlite;
 
 import java.util.Vector;
 

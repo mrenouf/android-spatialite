@@ -1,8 +1,9 @@
-package SQLite;
+package jsqlite;
 
-import SQLite.*;
 import java.io.*;
 import java.util.*;
+
+import jsqlite.*;
 
 /**
  * SQLite command line shell. This is a partial reimplementaion
