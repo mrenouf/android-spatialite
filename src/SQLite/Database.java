@@ -943,7 +943,8 @@ public class Database {
 	try {
 	    String path = System.getProperty("SQLite.library.path");
 	    if (path == null || path.length() == 0) {
-		System.loadLibrary("sqlite_jni");
+		System.loadLibrary("spatialite");
+		System.loadLibrary("jsqlite");
 	    } else {
 		try {
 		    java.lang.reflect.Method mapLibraryName;
