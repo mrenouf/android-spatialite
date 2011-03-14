@@ -9,9 +9,14 @@
 
 package jsqlite;
 
-import java.sql.*;
-import java.util.*;
-import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Enumeration;
+import java.util.Vector;
 
 public class Benchmark {
 
@@ -135,7 +140,6 @@ public class Benchmark {
 	try {
 	    Class.forName(DriverName);
 
-	    Benchmark Me =
 		new Benchmark(DBUrl, DBUser, DBPassword, initialize_dataset);
 	} catch (java.lang.Exception e) {
 	    System.out.println(e.getMessage());
@@ -144,9 +148,9 @@ public class Benchmark {
     }
 
     public Benchmark(String url, String user, String password, boolean init) {
-	Vector vClient = new Vector();
+	Vector<Thread> vClient = new Vector<Thread>();
 	Thread Client = null;
-	Enumeration en = null;
+	Enumeration<Thread> en = null;
 	try {
 	    if (init) {
 		System.out.print("Initializing dataset...");
@@ -171,12 +175,12 @@ public class Benchmark {
 	     */
 	    en = vClient.elements();
 	    while (en.hasMoreElements()) {
-		Client = (Thread) en.nextElement();
+		Client = en.nextElement();
 		Client.join();
 	    }
 	    vClient.removeAllElements();
 	    reportDone();
-        
+
 	    transactions = true;
 	    prepared_stmt = false;
 	    start_time = System.currentTimeMillis();
@@ -186,18 +190,18 @@ public class Benchmark {
 		Client.start();
 		vClient.addElement(Client);
 	    }
- 
+
 	    /*
 	     * Barrier to complete this test session
 	     */
 	    en = vClient.elements();
 	    while (en.hasMoreElements()) {
-		Client = (Thread) en.nextElement();
+		Client = en.nextElement();
 		Client.join();
 	    }
 	    vClient.removeAllElements();
 	    reportDone();
- 
+
 	    transactions = false;
 	    prepared_stmt = true;
 	    start_time = System.currentTimeMillis();
@@ -211,10 +215,10 @@ public class Benchmark {
 	    /*
 	     * Barrier to complete this test session
 	     */
-        
+
 	    en = vClient.elements();
 	    while (en.hasMoreElements()) {
-		Client = (Thread) en.nextElement();
+		Client = en.nextElement();
 		Client.join();
 	    }
 	    vClient.removeAllElements();
@@ -229,13 +233,13 @@ public class Benchmark {
 		Client.start();
 		vClient.addElement(Client);
 	    }
- 
+
 	    /*
 	     * Barrier to complete this test session
 	     */
 	    en = vClient.elements();
 	    while (en.hasMoreElements()) {
-		Client = (Thread) en.nextElement();
+		Client = en.nextElement();
 		Client.join();
 	    }
 	    vClient.removeAllElements();
@@ -725,7 +729,7 @@ class BenchmarkThread extends Thread {
 		Query += " SET Abalance = Abalance + " + delta;
 		Query += " WHERE Aid = " + aid;
 
-		int res = Stmt.executeUpdate(Query);
+		Stmt.executeUpdate(Query);
 		Stmt.clearWarnings();
 
 		Query = "SELECT Abalance";

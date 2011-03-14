@@ -1,9 +1,7 @@
 package jsqlite;
 
-import java.io.*;
-import java.util.*;
-
-import jsqlite.*;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 
 /**
  * SQLite SQL dump utility.
@@ -42,14 +40,17 @@ public class SQLDump implements Callback {
 	pw.flush();
     }
 
+    @Override
     public void columns(String col[]) {
 	/* Empty body to satisfy SQLite.Callback interface. */
     }
 
+    @Override
     public void types(String args[]) {
 	/* Empty body to satisfy SQLite.Callback interface. */
     }
 
+    @Override
     public boolean newrow(String args[]) {
 	if (args.length != 3) {
 	    return true;

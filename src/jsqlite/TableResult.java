@@ -57,7 +57,7 @@ public class TableResult implements Callback {
      * Rows of the result set. Each row is stored as a String array.
      */
 
-    public Vector rows;
+    public Vector<String[]> rows;
 
     /**
      * Maximum number of rows to hold in the table.
@@ -95,7 +95,7 @@ public class TableResult implements Callback {
     public void clear() {
 	column = new String[0];
 	types = null;
-	rows = new Vector();
+	rows = new Vector<String[]>();
 	ncolumns = nrows = 0;
 	atmaxrows = false;
     }
@@ -104,6 +104,7 @@ public class TableResult implements Callback {
      * Callback method used while the query is executed.
      */
 
+    @Override
     public void columns(String coldata[]) {
 	column = coldata;
 	ncolumns = column.length;
@@ -113,6 +114,7 @@ public class TableResult implements Callback {
      * Callback method used while the query is executed.
      */
 
+    @Override
     public void types(String types[]) {
 	this.types = types;
     }
@@ -121,6 +123,7 @@ public class TableResult implements Callback {
      * Callback method used while the query is executed.
      */
 
+    @Override
     public boolean newrow(String rowdata[]) {
 	if (rowdata != null) {
 	    if (maxrows > 0 && nrows >= maxrows) {
@@ -137,6 +140,7 @@ public class TableResult implements Callback {
      * Make String representation of result set.
      */
 
+    @Override
     public String toString() {
 	StringBuffer sb = new StringBuffer();
 	int i;
@@ -147,7 +151,7 @@ public class TableResult implements Callback {
 	sb.append('\n');
 	for (i = 0; i < nrows; i++) {
 	    int k;
-	    String row[] = (String[]) rows.elementAt(i);
+	    String row[] = rows.elementAt(i);
 	    for (k = 0; k < ncolumns; k++) {
 		sb.append(row[k] == null ? "NULL" : row[k]);
 		sb.append('|');

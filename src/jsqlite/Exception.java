@@ -5,6 +5,7 @@ package jsqlite;
  */
 
 public class Exception extends java.lang.Exception {
+  private static final long serialVersionUID = 6404151883862370052L;
 
     /**
      * Construct a new SQLite exception.

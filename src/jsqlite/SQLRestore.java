@@ -1,9 +1,10 @@
 package jsqlite;
 
-import java.io.*;
-import java.util.*;
-
-import jsqlite.*;
+import java.io.BufferedReader;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * SQLite SQL restore utility.

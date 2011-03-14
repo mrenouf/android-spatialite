@@ -1,9 +1,11 @@
 package jsqlite;
 
-import java.io.*;
-import java.util.*;
-
-import jsqlite.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
 
 /**
  * SQLite command line shell. This is a partial reimplementaion
@@ -48,6 +50,7 @@ public class Shell implements Callback {
 	err = new PrintWriter(errs);
     }
 
+    @Override
     protected Object clone() {
         Shell s = new Shell(this.pw, this.err);
 	s.db = db;
@@ -145,7 +148,7 @@ public class Shell implements Callback {
 
     static boolean is_numeric(String str) {
 	try {
-	    Double d = Double.valueOf(str);
+	    Double.valueOf(str);
 	} catch (java.lang.Exception e) {
 	    return false;
 	}
@@ -164,14 +167,17 @@ public class Shell implements Callback {
 	}
     }
 
+    @Override
     public void columns(String args[]) {
 	cols = args;
     }
 
+    @Override
     public void types(String args[]) {
 	/* Empty body to satisfy SQLite.Callback interface. */
     }
 
+    @Override
     public boolean newrow(String args[]) {
 	int i;
 	String tname;
@@ -193,7 +199,7 @@ public class Shell implements Callback {
 	    if (count++ == 0) {
 		colwidth = new int[args.length];
 		for (i = 0; i < args.length; i++) {
-		    int w, n;
+		    int w;
 		    w = cols[i].length();
 		    if (w < 10) {
 			w = 10;
