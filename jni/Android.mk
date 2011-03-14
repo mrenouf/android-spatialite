@@ -10,10 +10,10 @@ LOCAL_CFLAGS    := \
 	-DBUILDING_LIBICONV \
 	-DIN_LIBRARY
 LOCAL_C_INCLUDES := \
-	libiconv-1.13.1 \
-	libiconv-1.13.1/include \
-	libiconv-1.13.1/lib \
-	libiconv-1.13.1/libcharset/include
+	$(LOCAL_PATH)/libiconv-1.13.1 \
+	$(LOCAL_PATH)/libiconv-1.13.1/include \
+	$(LOCAL_PATH)/libiconv-1.13.1/lib \
+	$(LOCAL_PATH)/libiconv-1.13.1/libcharset/include
 LOCAL_SRC_FILES := \
 	libiconv-1.13.1/lib/iconv.c \
 	libiconv-1.13.1/lib/relocatable.c \
@@ -24,7 +24,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE    := proj
 # this list was generated with:
 #   find proj-4.7.0/ -name "*.c" | grep -Ev "tests|doc" | sort | awk '{ print "\t"$1" \\" }'
-LOCAL_C_INCLUDES := proj-4.7.0/src
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/proj-4.7.0/src
 LOCAL_LDLIBS := -lm
 LOCAL_SRC_FILES := \
 	proj-4.7.0/src/aasincos.c \
@@ -182,31 +182,32 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE    := spatialite
-LOCAL_CFLAGS	:= -D__ANDROID__ -DOMIT_GEOS=1 -Dfdatasync=fsync
+LOCAL_CFLAGS	:= -D__ANDROID__ -DOMIT_GEOS=1
+LOCAL_LDLIBS	:= -llog
 LOCAL_C_INCLUDES := \
-	libiconv-1.13.1/include \
-	libiconv-1.13.1/libcharset/include \
-	geos-3.2.2/source/headers \
-	geos-3.2.2/capi \
-	proj-4.7.0/src
+	$(LOCAL_PATH)/libiconv-1.13.1/include \
+	$(LOCAL_PATH)/libiconv-1.13.1/libcharset/include \
+	$(LOCAL_PATH)/geos-3.2.2/source/headers \
+	$(LOCAL_PATH)/geos-3.2.2/capi \
+	$(LOCAL_PATH)/proj-4.7.0/src
 LOCAL_SRC_FILES := \
-	./libspatialite-amalgamation-2.3.1/spatialite.c \
-	./libspatialite-amalgamation-2.3.1/sqlite3.c
-LOCAL_STATIC_LIBRARIES := iconv proj
-include $(BUILD_SHARED_LIBRARY)
+	./libspatialite-amalgamation-2.3.1/spatialite.c
+include $(BUILD_STATIC_LIBRARY)
 
 
 include $(CLEAR_VARS)
 LOCAL_MODULE    := jsqlite
 LOCAL_CFLAGS	:= -D__ANDROID__ \
-        -DHAVE_SQLITE3=1 \
-        -DHAVE_SQLITE3_LOAD_EXTENSION=1 \
-        -DCANT_PASS_VALIST_AS_CHARPTR=1
+	-DHAVE_SQLITE3=1 \
+	-DHAVE_SQLITE3_LOAD_EXTENSION=1 \
+	-DCANT_PASS_VALIST_AS_CHARPTR=1 \
+	-Dfdatasync=fsync
 LOCAL_C_INCLUDES := \
-        $(LOCAL_PATH)/libspatialite-amalgamation-2.3.1/headers/spatialite/ \
-        $(LOCAL_PATH)/javasqlite-20110106/native/
+	$(LOCAL_PATH)/libspatialite-amalgamation-2.3.1/headers/spatialite \
+	$(LOCAL_PATH)/javasqlite-20110106/native/
 LOCAL_SRC_FILES := \
-        javasqlite-20110106/native/sqlite_jni.c
-LOCAL_SHARED_LIBRARIES := spatialite
+	javasqlite-20110106/native/sqlite_jni.c \
+	libspatialite-amalgamation-2.3.1/sqlite3.c
+LOCAL_STATIC_LIBRARIES := spatialite iconv proj
 include $(BUILD_SHARED_LIBRARY)
 
