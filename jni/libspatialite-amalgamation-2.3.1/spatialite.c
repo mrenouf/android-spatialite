@@ -60,6 +60,10 @@ the terms of any one of the MPL, the GPL or the LGPL.
 #include <locale.h>
 #include <errno.h>
 
+#ifdef __ANDROID__
+#include <android/log.h>
+#endif
+
 #if defined(__MINGW32__) || defined(_WIN32)
 #define LIBICONV_STATIC
 #include <iconv.h>
@@ -28749,9 +28753,13 @@ void
 spatialite_init (int verbose)
 {
 /* used when SQLite initializes SpatiaLite via statically linked lib */
+#ifdef __ANDROID__
+    __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "spatialite_init()");
+#endif
     sqlite3_auto_extension ((void (*)(void)) init_static_spatialite);
     if (verbose)
       {
+#ifndef __ANDROID__
 	  printf ("SpatiaLite version ..: %s", spatialite_version ());
 	  printf ("\tSupported Extensions:\n");
 	  printf ("\t- 'VirtualShape'\t[direct Shapefile access]\n");
@@ -28761,14 +28769,33 @@ spatialite_init (int verbose)
 	  printf ("\t- 'MbrCache'\t\t[Spatial Index - MBR cache]\n");
 	  printf ("\t- 'VirtualFDO'\t\t[FDO-OGR interoperability]\n");
 	  printf ("\t- 'SpatiaLite'\t\t[Spatial SQL - OGC]\n");
+#else
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "SpatiaLite version ..: %s", spatialite_version ());
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\tSupported Extensions:\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'VirtualShape'\t[direct Shapefile access]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'VirtualText\t\t[direct CSV/TXT access]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'VirtualNetwork\t[Dijkstra shortest path]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'RTree'\t\t[Spatial Index - R*Tree]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'MbrCache'\t\t[Spatial Index - MBR cache]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'VirtualFDO'\t\t[FDO-OGR interoperability]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'SpatiaLite'\t\t[Spatial SQL - OGC]\n");
+#endif
       }
 #ifndef OMIT_PROJ		/* PROJ.4 version */
     if (verbose)
+#ifndef __ANDROID__
 	printf ("PROJ.4 version ......: %s\n", pj_get_release ());
+#else
+    __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'SpatiaLite'\t\t[Spatial SQL - OGC]\n");
+#endif
 #endif /* end including PROJ.4 */
 #ifndef OMIT_GEOS		/* GEOS version */
     if (verbose)
+#ifndef __ANDROID__
 	printf ("GEOS version ........: %s\n", GEOSversion ());
+#else
+    __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'SpatiaLite'\t\t[Spatial SQL - OGC]\n");
+#endif
 #endif /* end GEOS version */
 }
 
@@ -28776,6 +28803,9 @@ SPATIALITE_DECLARE int
 sqlite3_extension_init (sqlite3 * db, char **pzErrMsg,
 			const sqlite3_api_routines * pApi)
 {
+#ifdef __ANDROID__
+    __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "sqlite3_extension_init()");
+#endif
 /* SQLite invokes this routine once when it dynamically loads the extension. */
     SQLITE_EXTENSION_INIT2 (pApi);
     setlocale (LC_NUMERIC, "POSIX");

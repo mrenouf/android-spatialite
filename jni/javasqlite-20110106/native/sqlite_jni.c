@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifdef __ANDROID__
+#include <android/log.h>
+#endif
+
 #if HAVE_SQLITE2
 #include "sqlite.h"
 #endif
@@ -4971,6 +4975,9 @@ Java_SQLite_Backup_internal_1init(JNIEnv *env, jclass cls)
 JNIEXPORT void JNICALL
 Java_SQLite_Database_internal_1init(JNIEnv *env, jclass cls)
 {
+#ifdef __ANDROID__
+    __android_log_write(ANDROID_LOG_INFO,"JavaSQLITE","internal_init()");
+#endif
     spatialite_init(1);
 #if defined(DONT_USE_JNI_ONLOAD) || !defined(JNI_VERSION_1_2)
     while (C_java_lang_String == 0) {
@@ -5017,6 +5024,9 @@ JNI_OnLoad(JavaVM *vm, void *reserved)
 	return JNI_ERR;
     }
     C_java_lang_String = (*env)->NewGlobalRef(env, cls);
+#ifdef __ANDROID__
+    __android_log_write(ANDROID_LOG_INFO,"JavaSQLITE","Native JNI lib loaded");
+#endif
     return JNI_VERSION_1_2;
 }
 
@@ -5032,5 +5042,8 @@ JNI_OnUnload(JavaVM *vm, void *reserved)
 	(*env)->DeleteGlobalRef(env, C_java_lang_String);
 	C_java_lang_String = 0;
     }
+#ifdef __ANDROID__
+    __android_log_write(ANDROID_LOG_INFO,"JavaSQLITE","Native JNI lib unloaded");
+#endif
 }
 #endif

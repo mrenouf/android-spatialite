@@ -202,6 +202,7 @@ LOCAL_CFLAGS	:= -D__ANDROID__ \
 	-DHAVE_SQLITE3_LOAD_EXTENSION=1 \
 	-DCANT_PASS_VALIST_AS_CHARPTR=1 \
 	-Dfdatasync=fsync
+LOCAL_LDLIBS	:= -llog
 LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/libspatialite-amalgamation-2.3.1/headers/spatialite \
 	$(LOCAL_PATH)/javasqlite-20110106/native/
