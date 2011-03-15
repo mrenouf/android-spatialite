@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import jsqlite.Callback;
 import jsqlite.Exception;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,18 +11,15 @@ import android.util.Log;
 
 public class SpatialiteTestActivity extends Activity {
 
-  private static final String TAG = SpatialiteTestActivity.class.getSimpleName();
-
+  private static final String TAG = SpatialiteTestActivity.class.getName();
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
-
     jsqlite.Database db = new jsqlite.Database();
     try {
-
-      db.open(Environment.getExternalStorageDirectory() + "/spatialite-test.db",
-          jsqlite.Constants.SQLITE_OPEN_CREATE);
+      db.open(Environment.getExternalStorageDirectory() + "/spatialite_test.db",
+          jsqlite.Constants.SQLITE_OPEN_READONLY);
       Callback cb = new Callback() {
         @Override
         public void columns(String[] coldata) {
@@ -44,9 +40,9 @@ public class SpatialiteTestActivity extends Activity {
           return false;
         }
       };
-      db.exec("SELECT spatialite_version();", cb);
+      db.exec("SELECT name, peoples, AsText(GaiaGeometry) from Towns where peoples > 350000 order by peoples DESC;", cb);
     } catch (Exception e) {
-      Log.e(TAG, "Exception caught", e);
+      e.printStackTrace();
     }
   }
 }
