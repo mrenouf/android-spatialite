@@ -28771,14 +28771,14 @@ spatialite_init (int verbose)
 	  printf ("\t- 'SpatiaLite'\t\t[Spatial SQL - OGC]\n");
 #else
       __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "SpatiaLite version ..: %s", spatialite_version ());
-      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\tSupported Extensions:\n");
-      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'VirtualShape'\t[direct Shapefile access]\n");
-      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'VirtualText\t\t[direct CSV/TXT access]\n");
-      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'VirtualNetwork\t[Dijkstra shortest path]\n");
-      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'RTree'\t\t[Spatial Index - R*Tree]\n");
-      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'MbrCache'\t\t[Spatial Index - MBR cache]\n");
-      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'VirtualFDO'\t\t[FDO-OGR interoperability]\n");
-      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'SpatiaLite'\t\t[Spatial SQL - OGC]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "  Supported Extensions:\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "  - 'VirtualShape'   [direct Shapefile access]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "  - 'VirtualText'    [direct CSV/TXT access]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "  - 'VirtualNetwork' [Dijkstra shortest path]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "  - 'RTree'          [Spatial Index - R*Tree]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "  - 'MbrCache'       [Spatial Index - MBR cache]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "  - 'VirtualFDO'     [FDO-OGR interoperability]\n");
+      __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "  - 'SpatiaLite'     [Spatial SQL - OGC]\n");
 #endif
       }
 #ifndef OMIT_PROJ		/* PROJ.4 version */
@@ -28786,7 +28786,7 @@ spatialite_init (int verbose)
 #ifndef __ANDROID__
 	printf ("PROJ.4 version ......: %s\n", pj_get_release ());
 #else
-    __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'SpatiaLite'\t\t[Spatial SQL - OGC]\n");
+    __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "PROJ.4 version ......: %s\n", pj_get_release ());
 #endif
 #endif /* end including PROJ.4 */
 #ifndef OMIT_GEOS		/* GEOS version */
@@ -28794,7 +28794,7 @@ spatialite_init (int verbose)
 #ifndef __ANDROID__
 	printf ("GEOS version ........: %s\n", GEOSversion ());
 #else
-    __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "\t- 'SpatiaLite'\t\t[Spatial SQL - OGC]\n");
+    __android_log_print(ANDROID_LOG_INFO, "SpatiaLite", "GEOS version ........: %s\n", GEOSversion ());
 #endif
 #endif /* end GEOS version */
 }
